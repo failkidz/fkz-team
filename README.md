@@ -10,7 +10,7 @@ If the number of players is odd then one team will have a guest player for each 
 The server shall afterwards generate a tornament scheme, and be able to display it. After each game the final score should be processed and calculated
 so that the server can produce a table that displays the current standing between the teams.
 
-All of the information in the application shall use EJB because everyhing is important data for the tornament. 
+All of the information in the application shall use EJB object and be saved using JPA because everyhing is important data for the tornament. 
 
 There will also be and andriod client that will be able to show the scoreboard. So that every user in the tormanemt can easy
 see the current standings
