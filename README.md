@@ -36,7 +36,7 @@ These database tables will be used to hold the information.
 |----------|---------------|------------|-------------|-------------|-----------------|-------|
 |int       |int            |int         |int          |int          |int              |int    |
 
-####Match####
+####Game####
 
 |Home Teams.id | Away Teams.id | Home score | Away score |
 |--------------|---------------|------------|------------|
