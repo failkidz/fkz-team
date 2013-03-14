@@ -1,3 +1,4 @@
+<%@page import="failkidz.fkzteam.beans.ScoreHandler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,10 +41,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/fkz-team/index.jsp">Fkz-Team Generator</a>
+          <a class="brand" href="#">Fkz-Team Generator</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/fkz-team/Scoreboard">Score board</a></li>
+              <li class="active"><a href="#">Score board</a></li>
               <li><a href="#about">Games</a></li>
               <li><a href="#contact">Teams</a></li>
             </ul>
@@ -54,23 +55,12 @@
 
     <div class="container">
 
-		<%
-			Boolean login = (Boolean) request.getSession().getAttribute("login");
-			if (login == null) {
-				request.getSession().setAttribute("login", new Boolean(false));
-			}
-		%>
-
-		<h1>Welcome to Fkz-Team Generator</h1>
-
-		<h3>Login</h3>
-		<form action="/fkz-team/Login">
-		<input type="hidden" name="action" value="loginUser">
-		<input type="text" name="username" value=""><br>
-		<input type="password" name="password" value=""><br> 
-		<input type="submit" value="Login">
-		</form>
-
+	<h2>Score Board:</h2>
+	<% 
+	ScoreHandler temp =  (ScoreHandler)request.getAttribute("scorehandler");
+	%>
+	<%= temp.getHtmlTable() %>
+	
 	</div> <!-- /container -->
 
     <!-- Le javascript

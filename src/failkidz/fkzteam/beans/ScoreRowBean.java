@@ -9,7 +9,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ScoreRowBean {
+public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	
 	private String teamName;
 	private int teamId;
@@ -24,7 +24,7 @@ public class ScoreRowBean {
 	private Connection conn;
 	
 	/**
-	 * Default that will create and single row in the database
+	 * Default constructor that will create and single row in the database
 	 * with the teamId and the rest set to 0
 	 */
 	public ScoreRowBean(int teamId){
@@ -72,7 +72,7 @@ public class ScoreRowBean {
 		 * Not used at the moment
 		 */
 		String query = "DELETE FROM score WHERE teamsid="+this.teamId+";";
-		this.executeQuery(query);
+		this.execute(query);
 	}
 	
 	/**
@@ -81,7 +81,16 @@ public class ScoreRowBean {
 	private void update(){
 		this.initDatabase();
 		String query = "UPDATE score SET teamsid="+this.teamId+", gamesplayed="+this.gamesPlayed+", gameswon="+this.gamesWon+", gameslost="+this.gamesLost+", goalsscored="+this.goalsMade+", goalsagainst="+this.goalsAgainst+", points="+this.points+" WHERE teamsid="+ this.teamId+";";
-		this.executeQuery(query);
+		this.execute(query);
+	}
+	
+	private void execute(String query){
+		try{
+			Statement stmt = conn.createStatement();
+			stmt.execute(query);
+		}
+		catch(SQLException e){
+		}
 	}
 	
 	private ResultSet executeQuery(String query){
@@ -108,6 +117,22 @@ public class ScoreRowBean {
 		catch(NamingException e){
 
 		}
+	}
+	
+	public String getHtmlRow(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<tr>\n");
+		sb.append("<td>"+this.getTeamName()+"</td>\n");
+		sb.append("<td>"+this.getGamesPlayed()+"</td>\n");
+		sb.append("<td>"+this.getGamesWon()+"</td>\n");
+		sb.append("<td>"+this.getGamesLost()+"</td>\n");
+		sb.append("<td>"+this.getGoalsMade()+"</td>\n");
+		sb.append("<td>"+this.getGoalsAgainst()+"</td>\n");
+		sb.append("<td>"+this.getGoalDiff()+"</td>\n");
+		sb.append("<td>"+this.getPoints()+"</td>\n");
+		sb.append("</tr>\n");
+		
+		return sb.toString();
 	}
 		
 	/*
@@ -174,5 +199,11 @@ public class ScoreRowBean {
 	public void setPoints(int points) {
 		this.points = points;
 		this.update();
+	}
+
+	
+	@Override
+	public int compareTo(ScoreRowBean other) {
+		return Double.compare(other.getPoints(),this.getPoints());
 	}
 }
