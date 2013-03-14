@@ -11,9 +11,9 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class LoginHandler {
-	
+
 	private Connection conn;
-	
+
 	public LoginHandler(){
 		try{
 			Context initCtx = new InitialContext();
@@ -22,16 +22,16 @@ public class LoginHandler {
 			conn = ds.getConnection();
 		}
 		catch(SQLException e){
-			
+
 		}
 		catch(NamingException e){
 
 		}
 	}
 	public void addUser(String user, String password){
-		
+
 	}
-	
+
 	public boolean verifyUser(String user, String password){
 		try{
 			Statement stmt = conn.createStatement();
@@ -46,22 +46,22 @@ public class LoginHandler {
 		}
 		return false;
 	}
-	
+
 	public ArrayList<String> listUsers(){
-		
+
 		ArrayList<String> result = new ArrayList<String>();
 		try{
 			Statement stmt = conn.createStatement();
 			ResultSet rs = null;        
 			String query = "select * from login";
 			rs = stmt.executeQuery(query);
-			while(rs.next()){				
+			while(rs.next()){
 				result.add(rs.getString("username") + ":" + rs.getString("passwordhash"));
 			}
 		}
 		catch(SQLException e){
 		}
-		
+
 		return result;
 	}
 }

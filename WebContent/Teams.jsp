@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="failkidz.fkzteam.beans.TeamHandler" %>
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Teams</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -43,9 +43,9 @@
           <a class="brand" href="#">Fkz-Team Generator</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Score board</a></li>
+              <li><a href="#">Score board</a></li>
               <li><a href="#about">Games</a></li>
-              <li><a href="Teams.jsp">Teams</a></li>
+              <li class="active"><a href="Teams.jsp">Teams</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -53,42 +53,29 @@
     </div>
 
     <div class="container">
-
-		<%
-			Boolean login = (Boolean) request.getSession().getAttribute("login");
-			if (login == null) {
-				request.getSession().setAttribute("login", new Boolean(false));
-			}
-		%>
-
-		<h1>Welcome to Fkz-Team Generator</h1>
-
-		<h3>Login</h3>
-		<form action="/fkz-team/Login">
-		<input type="hidden" name="action" value="loginUser">
-		<input type="text" name="username" value=""><br>
-		<input type="password" name="password" value=""><br> 
-		<input type="submit" value="Login">
+		<h3>Teams:</h3>
+		<%= new TeamHandler().viewTeams() %>
+		
+		
+		<h3>Add Player:</h3>
+		<form action="/fkz-team/Teams">
+		<input type="hidden" name="action" value="addPlayer">
+		<input type="text" name="playerName" value=""><br>
+		<input type="submit" value="Add Player">
 		</form>
-
-	</div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./bootstrap/js/jquery.js"></script>
-    <script src="./bootstrap/js/bootstrap-transition.js"></script>
-    <script src="./bootstrap/js/bootstrap-alert.js"></script>
-    <script src="./bootstrap/js/bootstrap-modal.js"></script>
-    <script src="./bootstrap/js/bootstrap-dropdown.js"></script>
-    <script src="./bootstrap/js/bootstrap-scrollspy.js"></script>
-    <script src="./bootstrap/js/bootstrap-tab.js"></script>
-    <script src="./bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="./bootstrap/js/bootstrap-popover.js"></script>
-    <script src="./bootstrap/js/bootstrap-button.js"></script>
-    <script src="./bootstrap/js/bootstrap-collapse.js"></script>
-    <script src="./bootstrap/js/bootstrap-carousel.js"></script>
-    <script src="./bootstrap/js/bootstrap-typeahead.js"></script>
-
-  </body>
+		
+		
+		<h3>Add Team:</h3>
+		<form action="/fkz-team/Teams">
+		<input type="hidden" name="action" value="addTeam">
+		<input type="text" name="teamName" value=""><br>
+		<input type="submit" value="Add Team">
+		</form>
+		
+		<form>
+		<input type="hidden" name="action" value="genTeams">
+		<input type="submit" value="Generate teams!">
+		</form>
+	</div>
+</body>
 </html>
