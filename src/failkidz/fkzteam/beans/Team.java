@@ -31,6 +31,8 @@ public class Team {
 			System.out.println("About to add entry to DB");
 			st.execute("INSERT INTO teams VALUES ( 0 , '"+teamName+"','"+player1+"','"+player2+"');");
 			System.out.println("Added entry to DB");
+			st.close();
+			conn.close();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
