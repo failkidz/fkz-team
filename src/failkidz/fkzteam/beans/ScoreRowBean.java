@@ -155,6 +155,23 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 		
 		return sb.toString();
 	}
+	
+	public String getJSONArray(){
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("    {\n");
+		sb.append("        \"teamname\": \""+this.getTeamName()+"\",\n");
+		sb.append("        \"gamesplayed\": \""+this.getGamesPlayed()+"\",\n");
+		sb.append("        \"gameswon\": \""+this.getGamesWon()+"\",\n");
+		sb.append("        \"gameslost\": \""+this.getGamesLost()+"\",\n");
+		sb.append("        \"goalsmade\": \""+this.getGoalsMade()+"\",\n");
+		sb.append("        \"goalsagainst\": \""+this.getGoalsAgainst()+"\",\n");
+		sb.append("        \"goalsdiff\": \""+this.getGoalDiff()+"\",\n");
+		sb.append("        \"points\": \""+this.getPoints()+"\"\n");
+		sb.append("    }");
+		
+		return sb.toString();
+	}
 		
 	/*
 	 * A lot of getters and setters...

@@ -95,6 +95,24 @@ public class ScoreHandler {
 		}
 		return sb.toString();		
 	}
+	public String getJSON(){
+		StringBuilder sb = new StringBuilder();
+		
+		if(rows.size() > 0){
+			sb.append("{\"scoreboard\": [\n");
+			for(ScoreRowBean row : rows){
+				sb.append(row.getJSONArray());
+				sb.append(",\n");
+			}
+			sb.deleteCharAt(sb.length()-2);
+			sb.append("]}");
+		}
+		else{
+			sb.append("No rows to display");
+		}
+		
+		return sb.toString();
+	}
 	
 
 }
