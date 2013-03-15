@@ -36,7 +36,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 		this.goalsAgainst = 0;
 		this.points = 0;	
 		//Now call the insert method to save to the database
-		this.insert();
+		//this.insert();
 	}
 	
 	public ScoreRowBean(int teamId,int gamesPlayed,int gamesWon,int gamesLost,int goalsMade,int goalsAgainst,int points){
@@ -50,7 +50,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	
 	public void deleteThisRow(){
-		this.delete();
+		//this.delete();
 	}
 	
 	/**
@@ -188,42 +188,42 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
-		this.update();
+		//this.update();
 	}
 	public int getGamesPlayed() {
 		return gamesPlayed;
 	}
 	public void setGamesPlayed(int gamesPlayed) {
 		this.gamesPlayed = gamesPlayed;
-		this.update();
+		//this.update();
 	}
 	public int getGamesWon() {
 		return gamesWon;
 	}
 	public void setGamesWon(int gamesWon) {
 		this.gamesWon = gamesWon;
-		this.update();		
+		//this.update();		
 	}
 	public int getGamesLost() {
 		return gamesLost;
 	}
 	public void setGamesLost(int gamesLost) {
 		this.gamesLost = gamesLost;
-		this.update();
+		//this.update();
 	}
 	public int getGoalsMade() {
 		return goalsMade;
 	}
 	public void setGoalsMade(int goalsMade) {
 		this.goalsMade = goalsMade;
-		this.update();
+		//this.update();
 	}
 	public int getGoalsAgainst() {
 		return goalsAgainst;
 	}
 	public void setGoalsAgainst(int goalsAgainst) {
 		this.goalsAgainst = goalsAgainst;
-		this.update();
+		//this.update();
 	}
 	public int getGoalDiff() {
 		return goalDiff;
@@ -236,7 +236,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	public void setPoints(int points) {
 		this.points = points;
-		this.update();
+		//this.update();
 	}
 
 	
