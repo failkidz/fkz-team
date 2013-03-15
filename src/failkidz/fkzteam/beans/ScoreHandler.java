@@ -41,7 +41,7 @@ public class ScoreHandler {
 		Statement stmt = null;
 		try{
 			stmt = conn.createStatement();
-			String query = "SELECT * FROM score ORDER BY points;";
+			String query = "SELECT * FROM score ORDER BY points DESC;";
 			rs = stmt.executeQuery(query);
 			while(rs.next()){
 				ScoreRowBean row = new ScoreRowBean(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7));
