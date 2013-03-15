@@ -85,21 +85,42 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	
 	private void execute(String query){
+		Statement stmt = null;
 		try{
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			stmt.execute(query);
 		}
 		catch(SQLException e){
+		}
+		finally{
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	private ResultSet executeQuery(String query){
 		ResultSet rs = null;
+		Statement stmt = null;
 		try{
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			rs = stmt.executeQuery(query);
 		}
 		catch(SQLException e){
+		}
+		finally{
+			try {
+				stmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return rs;
 	}

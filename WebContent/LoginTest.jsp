@@ -9,7 +9,7 @@
 <body>
 
 <p>Login status:</p>
-<%= request.getSession().getAttribute("login") %>
+<%= (Boolean)request.getSession().getAttribute("login") %>
 
 </body>
 </html>

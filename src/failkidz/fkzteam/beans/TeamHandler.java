@@ -57,6 +57,9 @@ public class TeamHandler {
 			sb.append("</tr>");
 		}
 		sb.append("</table>");
+		rs.close();
+		stmt.close();
+		conn.close();
 		if(sb.length() == (size +8)){
 			return "There are currently no teams to list.";
 		}
@@ -85,8 +88,12 @@ public class TeamHandler {
 		int index = 0;
 		for(String team : teams){
 			System.out.println(team);
+			if(index >= players.size())
+				break;
 			new Team(players.get(index++),players.get(index++),team).insert();
 		}
+		teams.clear();
+		players.clear();
 
 	}
 }

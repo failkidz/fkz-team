@@ -38,8 +38,9 @@ public class ScoreHandler {
 		
 		//Execute the query and read the resultset
 		ResultSet rs = null;
+		Statement stmt = null;
 		try{
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			String query = "SELECT * FROM score ORDER BY points;";
 			rs = stmt.executeQuery(query);
 			while(rs.next()){
@@ -49,6 +50,16 @@ public class ScoreHandler {
 		}
 		catch(SQLException e){
 			
+		}
+		finally{
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
