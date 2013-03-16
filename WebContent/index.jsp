@@ -43,7 +43,7 @@
           <a class="brand" href="/fkz-team/index.jsp">Fkz-Team Generator</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/fkz-team/Scoreboard">Score board</a></li>
+              <li><a href="/fkz-team/Scoreboard">Score board</a></li>
               <li><a href="/fkz-team/Fixtures">Fixtures</a></li>
               <li><a href="Teams.jsp">Teams</a></li>
               <li><a href="Reset.jsp">Reset</a></li>

@@ -62,21 +62,26 @@ body {
 	<div class="container">
 		<h2>This option will reset all teams, scores and games.</h2>
 		<br>
-		<h3>Reset data?</h3>
-		<input type="button" value="Reset" onClick="show()">
-		<div id="resetButton" style="visibility: hidden">
-		<h3>Are you sure? The data will not be recoverable.</h3>
-			<form action="/fkz-team/Reset">
-				<input type="hidden" name="action" value="reset">
-				<input type="submit" value="Yes, reset data">
-			</form>
-		</div>
+		<h3 id="header">Reset data?</h3>
+		<input id="button" type="button" value="Reset" onClick="swap()">
+
+
+		<form id="form" action="/fkz-team/Reset">
+			<input id="field" type="hidden" name="action" value="reset">
+		</form>
+
+
 
 	</div>
 </body>
 <script>
-function show(){
-	document.getElementById("resetButton").style.visibility = "visible";
+function swap(){
+	document.getElementById("header").innerHTML = "Are you sure? The data will not be recoverable.";
+	document.getElementById("button").value ="Yes, reset data";
+	document.getElementById("button").setAttribute( "onClick","javascript: submit();");
+}
+function submit(){
+	document.forms["form"].submit();
 }
 </script>
 </html>
