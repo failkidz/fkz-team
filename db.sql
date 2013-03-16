@@ -3,12 +3,12 @@ drop table teams;
 drop table score;
 drop table game;
 create table login(
-  	id int, 
+  	id NOT NULL AUTO_INCREMENT,
 	username varchar(20), 
 	password varchar(32)
 );
 create table teams(
-	id int, 
+	id int NOT NULL AUTO_INCREMENT,
 	teamname varchar(100), 
 	player1name varchar(32),
 	player2name varchar(32)
