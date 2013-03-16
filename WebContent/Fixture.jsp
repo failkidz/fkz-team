@@ -40,9 +40,10 @@
 				<a class="brand" href="index.jsp">Fkz-Team Generator</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li><a href="#">Score board</a></li>
-						<li class="active"><a href="Fixture.jsp">Games</a></li>
+						<li><a href="Scoreboard">Score board</a></li>
+						<li class="active"><a href="Fixture.jsp">Fixtures</a></li>
 						<li><a href="Teams.jsp">Teams</a></li>
+						<li><a href="Reset.jsp">Reset</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
