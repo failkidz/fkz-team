@@ -41,12 +41,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Fkz-Team Generator</a>
+          <a class="brand" href="index.jsp">Fkz-Team Generator</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Score board</a></li>
-              <li><a href="#about">Games</a></li>
-              <li><a href="#contact">Teams</a></li>
+              <li><a href="Fixtures">Fixtures</a></li>
+              <li><a href="Teams.jsp">Teams</a></li>
+              <li><a href="Reset.jsp">Reset</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
