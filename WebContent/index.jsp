@@ -44,7 +44,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="/fkz-team/Scoreboard">Score board</a></li>
-              <li><a href="#about">Games</a></li>
+              <li><a href="/fkz-team/Fixtures">Fixtures</a></li>
               <li><a href="Teams.jsp">Teams</a></li>
             </ul>
           </div><!--/.nav-collapse -->
