@@ -11,8 +11,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class FixtureHandler {
-	private boolean addedGhost = false;
-	private ArrayList<FixtureBean> benz = new ArrayList<FixtureBean>();
 	private ArrayList<FixtureBean> loadBean = new ArrayList<FixtureBean>();
 
 	public FixtureHandler(){
@@ -80,12 +78,11 @@ public class FixtureHandler {
 			sb.append("<tr>\n");
 			sb.append("<th>Home</th>\n");
 			sb.append("<th>Away</th>\n");
-			sb.append("<th>Home score<th>\n");
-			sb.append("<th>Away score<th>\n");
+			sb.append("<th>Home score</th>\n");
+			sb.append("<th>Away score</th>\n");
 			sb.append("</tr>\n");
 			sb.append("</thead>\n");
 			sb.append("<tbody>\n");
-
 			for(FixtureBean bean : loadBean){
 				sb.append(bean.getHtmlRow());
 			}
@@ -109,6 +106,9 @@ public class FixtureHandler {
 	 * @param number of teams
 	 */
 	public void createFixtures(int numTeams){
+		ArrayList<FixtureBean> benz = new ArrayList<FixtureBean>();
+		boolean addedGhost = false;
+		
 		//check if numTeams is odd, if odd add a fake team to make it even
 		if((numTeams & 1) == 1){
 			numTeams++;
@@ -159,7 +159,9 @@ public class FixtureHandler {
 			int home = fixtures.get(i).homeID;
 			int away = fixtures.get(i).awayID;
 
-			benz.add(fb = new FixtureBean(home, away));
+			fb = new FixtureBean(home, away);
+			fb.insert();
+			benz.add(fb);
 		}
 
 		//creates away games, reverse all home games
