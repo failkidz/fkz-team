@@ -33,7 +33,7 @@ public class Fixtures extends HttpServlet {
 		FixtureHandler fh = new FixtureHandler();
 		if(request.getParameter("action") != null){
 			if(request.getParameter("action").equals("generategames")){
-				// TODO - Do later on
+				fh.createFixtures(4);
 			}
 		}
 
@@ -42,7 +42,7 @@ public class Fixtures extends HttpServlet {
 		request.setAttribute("fixturehandler", fh);
 
 		try{
-			RequestDispatcher rd = request.getRequestDispatcher("");
+			RequestDispatcher rd = request.getRequestDispatcher("/Fixture.jsp");
 			rd.forward(request, response);
 		}catch (Exception e){
 			e.printStackTrace();

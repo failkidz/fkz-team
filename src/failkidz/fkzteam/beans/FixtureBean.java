@@ -21,17 +21,15 @@ public class FixtureBean {
 		this.awayID = awayID;
 		homeScore = -1;
 		awayScore = -1;
-		insert();
 	}
 
 	/**
 	 * This will create the insert statement to the database 
 	 */
-	private void insert() {
+	public void insert() {
 		this.initDatabase();
 		String query = "INSERT INTO game VALUES(" + this.homeID + ", " + this.awayID + ", " + this.homeScore + ", " + this.awayScore + ");";
 		this.execute(query);
-
 	}
 
 
