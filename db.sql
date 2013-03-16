@@ -3,7 +3,7 @@ drop table teams;
 drop table score;
 drop table game;
 create table login(
-  id int, 
+  	id int, 
 	username varchar(20), 
 	password varchar(32)
 );
@@ -26,5 +26,6 @@ create table game(
 	homeid int,
 	awayid int,
 	homescore int,
-	awayscore int
+	awayscore int,
+	gameorder int
 );

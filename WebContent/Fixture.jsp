@@ -41,7 +41,7 @@
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li><a href="Scoreboard">Score board</a></li>
-						<li class="active"><a href="Fixture.jsp">Fixtures</a></li>
+						<li class="active"><a href="/fkz-team/Fixtures">Fixtures</a></li>
 						<li><a href="Teams.jsp">Teams</a></li>
 						<li><a href="Reset.jsp">Reset</a></li>
 					</ul>
