@@ -65,7 +65,7 @@
 		<h1>Welcome to Fkz-Team Generator</h1>
 
 		<h3>Login</h3>
-		<form action="/fkz-team/Login">
+		<form action="/fkz-team/Login" method="post">
 		<input type="hidden" name="action" value="loginUser">
 		<input type="text" name="username" value=""><br>
 		<input type="password" name="password" value=""><br> 
