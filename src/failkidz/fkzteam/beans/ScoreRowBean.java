@@ -56,11 +56,11 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	/**
 	 * Does a insert of the database of the current instance of this class
 	 */
-	private void insert(){
+	public void insert(){
 		this.initDatabase();
 		//INSERT INTO table_name (column1, column2, column3,...)
 		String query = "INSERT INTO score VALUES ("+this.teamId+","+this.gamesPlayed+","+this.gamesWon+","+this.gamesLost+","+this.goalsMade+","+this.goalsAgainst+","+this.points+");";
-		this.executeQuery(query);
+		this.execute(query);
 	}
 	
 	/**
@@ -78,11 +78,32 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	/**
 	 * Updates the row in the database
 	 */
-	private void update(){
+	public void update(){
 		this.initDatabase();
 		String query = "UPDATE score SET teamsid="+this.teamId+", gamesplayed="+this.gamesPlayed+", gameswon="+this.gamesWon+", gameslost="+this.gamesLost+", goalsscored="+this.goalsMade+", goalsagainst="+this.goalsAgainst+", points="+this.points+" WHERE teamsid="+ this.teamId+";";
 		System.out.println(query);
 		this.execute(query);
+	}
+	
+	public void loadBean(){
+		this.initDatabase();
+		String query = "SELECT * FROM score WHERE teamsid="+this.teamId+";";
+		ResultSet rs = executeQuery(query);
+		//Since we only want to get one row we can simply just get the column values
+		try {
+			this.teamId = rs.getInt(1);
+			this.gamesPlayed = rs.getInt(2);
+			this.gamesWon = rs.getInt(3);
+			this.gamesLost = rs.getInt(4);
+			this.goalsMade = rs.getInt(5);
+			this.goalsAgainst = rs.getInt(6);
+			this.points = rs.getInt(7);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private void execute(String query){
@@ -120,7 +141,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 		return rs;
@@ -189,42 +210,36 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
-		//this.update();
 	}
 	public int getGamesPlayed() {
 		return gamesPlayed;
 	}
 	public void setGamesPlayed(int gamesPlayed) {
 		this.gamesPlayed = gamesPlayed;
-		//this.update();
 	}
 	public int getGamesWon() {
 		return gamesWon;
 	}
 	public void setGamesWon(int gamesWon) {
 		this.gamesWon = gamesWon;
-		//this.update();		
 	}
 	public int getGamesLost() {
 		return gamesLost;
 	}
 	public void setGamesLost(int gamesLost) {
 		this.gamesLost = gamesLost;
-		//this.update();
 	}
 	public int getGoalsMade() {
 		return goalsMade;
 	}
 	public void setGoalsMade(int goalsMade) {
 		this.goalsMade = goalsMade;
-		//this.update();
 	}
 	public int getGoalsAgainst() {
 		return goalsAgainst;
 	}
 	public void setGoalsAgainst(int goalsAgainst) {
 		this.goalsAgainst = goalsAgainst;
-		//this.update();
 	}
 	public int getGoalDiff() {
 		return goalDiff;
@@ -237,7 +252,6 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	public void setPoints(int points) {
 		this.points = points;
-		//this.update();
 	}
 
 	
