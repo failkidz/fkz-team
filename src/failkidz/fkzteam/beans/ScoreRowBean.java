@@ -202,7 +202,6 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	 */
 		
 	public String getTeamName() {
-		System.out.println("TEAMNAME IS: " + this.teamName);
 		if(this.teamName == null){
 			try{
 				Context initCtx = new InitialContext();

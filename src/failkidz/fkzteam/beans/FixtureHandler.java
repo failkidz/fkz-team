@@ -145,11 +145,14 @@ public class FixtureHandler {
 				if(addedGhost){
 					if(home != (numTeams-1) && away != (numTeams-1)){
 						fixtures.add(new Fixture(home, away));
+						fixtures.add(new Fixture(home, away));
+					} 
+				} else {
+					if(home != numTeams && away != numTeams){
+						fixtures.add(new Fixture(home, away));
+						fixtures.add(new Fixture(home, away));
 					} 
 				}
-				if(home != (numTeams-1) && away != (numTeams-1)){
-					fixtures.add(new Fixture(home, away));
-				} 
 			}
 		}
 
