@@ -41,12 +41,12 @@ public class FixtureHandler {
 
 		try{
 			stmt = conn.createStatement();
-			String query = "SELECT * FROM game;";
+			String query = "SELECT * FROM game ORDER BY gameorder ASC;";
 			rs = stmt.executeQuery(query);
 
 			//read the results
 			while(rs.next()){
-				FixtureBean fixBean = new FixtureBean(rs.getInt(1), rs.getInt(2) /*, rs.getInt(3), rs.getInt(4)*/);
+				FixtureBean fixBean = new FixtureBean(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
 				loadBean.add(fixBean);
 			}
 
@@ -151,28 +151,93 @@ public class FixtureHandler {
 			}
 		}
 
-		@SuppressWarnings("unused")
 		FixtureBean fb = null;
+		int gameOrder = 0;
 
 		//for every game created, let bean insert it to the database
 		for(int i = 0; i < fixtures.size(); i++){
 			int home = fixtures.get(i).homeID;
 			int away = fixtures.get(i).awayID;
 
-			fb = new FixtureBean(home, away);
+			fb = new FixtureBean(home, away,gameOrder);
 			fb.insert();
 			benz.add(fb);
+			//Increment the gameorder
+			gameOrder++;
 		}
 
 		//creates away games, reverse all home games
 		//then bean insert it into the database
-		for(FixtureBean bean : benz){
+		int size = benz.size();
+		for(int i = 0; i < size; i++){
+			FixtureBean bean = benz.get(i);
 			int revHome = bean.getAwayID();
 			int revAway = bean.getHomeID();
 
-			fb = new FixtureBean(revHome, revAway);
+			fb = new FixtureBean(revHome, revAway, gameOrder);
+			fb.insert();
+			benz.add(fb);
+			//Increment the gameorder
+			gameOrder++;
 		}
-
 	}
-
+	
+	public FixtureBean getNextGame(){
+		for(FixtureBean fb : loadBean){
+			if(fb.getHomeScore() == -1 && fb.getAwayScore() == -1){
+				return fb;
+			}
+		}
+		return null;		
+	}
+	
+	public boolean existMoreGames(){
+		return loadBean.size() > 0;
+	}
+	
+	public String getNextGameHTML(){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(this.existMoreGames()){
+			FixtureBean fb = getNextGame();
+			if(fb == null){
+				System.out.println("No more games to play!");
+				sb.append("No more games to play!");
+			}
+			else{
+				sb.append("<form class=\"form-inline\" action=\"/fkz-team/Fixtures\">\n");
+				sb.append("<input type=\"hidden\" name=\"action\" value=\"registergame\">\n");
+				sb.append("<input type=\"hidden\" name=\"homeId\" value="+ fb.getHomeID() +">\n");
+				sb.append("<input type=\"hidden\" name=\"awayId\" value="+ fb.getAwayID() +">\n");
+				sb.append("<label>" + fb.getTeamName(fb.getHomeID()) + " - " + fb.getTeamName(fb.getAwayID()) + " = </label>\n");
+				sb.append("<input type=\"text\" name=\"homescore\" class=\"input-small\" placeholder=\"0\">\n");
+				sb.append("<input type=\"text\" name=\"awayscore\" class=\"input-small\" placeholder=\"0\">\n");
+				sb.append("<button type=\"submit\" class=\"btn\">Register result</button>\n");	
+				sb.append("</form>");
+			}
+		}
+		else{
+			sb.append("<p>Start by generate the fixtures</p>");
+		}
+		
+		return sb.toString();
+	}
+	
+	public void addResult(int homeId,int awayId,int homeScore, int awayScore){
+		//Now get the belingen FixtureBean
+		FixtureBean currentFixture = null;
+		for(FixtureBean fb : loadBean){
+			if(fb.getHomeID() == homeId  && fb.getAwayID() == awayId){
+				currentFixture = fb;
+				break;
+			}
+		}
+		//Now update the score:
+		currentFixture.setHomeScore(homeScore);
+		currentFixture.setAwayScore(awayScore);
+		//And store it to the database
+		currentFixture.update();
+	}
+	
 }

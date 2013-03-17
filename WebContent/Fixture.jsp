@@ -1,3 +1,4 @@
+<%@page import="failkidz.fkzteam.beans.FixtureBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="failkidz.fkzteam.beans.FixtureHandler"%>
 
@@ -54,9 +55,13 @@
 	<div class="container">
 		<h2>Fixtures</h2>
 		<% 
-			FixtureHandler handler = (FixtureHandler)request.getAttribute("fixturehandler"); 
+			//Get the fixture handler
+			FixtureHandler handler = (FixtureHandler)request.getAttribute("fixturehandler");
 		%>
-
+		<h3>Next game:</h3>
+		<%=handler.getNextGameHTML() %>
+		
+		<h3>Games:</h3>
 		<%= 
 			handler.createHtmlTable()
 		%>

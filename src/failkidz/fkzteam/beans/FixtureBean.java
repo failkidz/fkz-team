@@ -1,5 +1,6 @@
 package failkidz.fkzteam.beans;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -15,20 +16,36 @@ public class FixtureBean {
 	private int awayID;
 	private int homeScore;
 	private int awayScore;
+	private int gameOrder;
 
-	public FixtureBean(int homeID, int awayID){
+	public FixtureBean(int homeID, int awayID,int gameOrder){
 		this.homeID = homeID;
 		this.awayID = awayID;
-		homeScore = -1;
-		awayScore = -1;
+		this.homeScore = -1;
+		this.awayScore = -1;
+		this.gameOrder = gameOrder;
 	}
-
+	
+	public FixtureBean(int homeID,int awayID,int homeScore,int awayScore,int gameOrder){
+		this.homeID = homeID;
+		this.awayID = awayID;
+		this.homeScore = homeScore;
+		this.awayScore = awayScore;
+		this.gameOrder = gameOrder;
+	}
+	
 	/**
 	 * This will create the insert statement to the database 
 	 */
 	public void insert() {
 		this.initDatabase();
-		String query = "INSERT INTO game VALUES(" + this.homeID + ", " + this.awayID + ", " + this.homeScore + ", " + this.awayScore + ");";
+		String query = "INSERT INTO game VALUES(" + this.homeID + ", " + this.awayID + ", " + this.homeScore + ", " + this.awayScore + ", " + this.gameOrder + ");";
+		this.execute(query);
+	}
+	
+	public void update(){
+		this.initDatabase();
+		String query = "UPDATE game SET homescore="+this.homeScore+", awayscore="+this.awayScore+" WHERE homeid="+this.homeID + " and awayid="+this.awayID+";";
 		this.execute(query);
 	}
 
@@ -54,6 +71,28 @@ public class FixtureBean {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private ResultSet executeQuery(String query){
+		ResultSet rs = null;
+		Statement stmt = null;
+		try{
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+		}
+		catch(SQLException e){
+		}
+		finally{
+			try {
+				stmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return rs;
 	}
 
 
@@ -91,6 +130,16 @@ public class FixtureBean {
 		sb.append("</tr>\n");
 
 		return sb.toString();
+	}
+	
+	public String getTeamName(int teamID){
+		String query = "SELECT teamname FROM teams WHERE id="+teamID+";";
+		initDatabase();
+		try {
+			return executeQuery(query).getString(1);
+		} catch (SQLException e) {
+			return null;
+		}
 	}
 
 
