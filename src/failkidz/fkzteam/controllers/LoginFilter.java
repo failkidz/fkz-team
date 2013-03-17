@@ -35,24 +35,28 @@ public class LoginFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
+
+
 		try{
 			if(!(Boolean)req.getSession().getAttribute("login") ){ //If not logged in
-				if( exclude(req.getRequestURI()) ){ //Check if page is allowed while not logged in
-					chain.doFilter(request, response); //OK show page
-				} else {
-					request.getRequestDispatcher("index.jsp").forward(request, response); //nope, redirect to login
-				}
+				//Do nothing (Will be handled later)
 			} else {
-				// pass the request along the filter chain
 				chain.doFilter(request, response); //Person is logged in. Allow everything
+				return;
 			}
-		} catch(NullPointerException e){ //Person does not have a session yet. Can't be logged on.
-			request.getRequestDispatcher("index.jsp").forward(request, response); 
+		} catch(NullPointerException e){ //Person does not have a session yet.
+			//Just continue;
+		}
+		if( exclude(req.getRequestURI()) ){ //Check if page is allowed while not logged in
+			chain.doFilter(request, response); //OK show page
+		} else {
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
-	
+
+
 	public boolean exclude(String uri){
-		return (uri.contains("Scoreboard") || uri.contains("Login"));
+		return (uri.contains("Scoreboard") || uri.contains("Login") || uri.contains("bootstrap"));
 	}
 
 	/**
