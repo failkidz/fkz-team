@@ -284,6 +284,48 @@ public class FixtureHandler {
 		currentFixture.setAwayScore(awayScore);
 		//And store it to the database
 		currentFixture.update();
+		
+		//Fetch each teams scorerowbean
+		ScoreRowBean home = new ScoreRowBean(homeId);
+		home.loadBean();
+		ScoreRowBean away = new ScoreRowBean(awayId);
+		away.loadBean();
+		
+		//Home won
+		if(homeScore > awayScore){
+			//Games won / played
+			home.setGamesWon(home.getGamesWon()+1);
+			away.setGamesLost(away.getGamesLost()+1);
+			//Points
+			home.setPoints(home.getPoints()+2);			
+		}
+		//Away won
+		else if(homeScore < awayScore){
+			//Games won / played
+			away.setGamesWon(away.getGamesWon()+1);
+			home.setGamesLost(home.getGamesLost()+1);
+			//Points
+			away.setPoints(away.getPoints()+2);
+		}
+		//Tie
+		else{
+			home.setPoints(home.getPoints()+1);
+			away.setPoints(away.getPoints()+1);
+		}
+		//Rest of the field that will allways uppdates no matter who won
+		//Games played
+		home.setGamesPlayed(home.getGamesPlayed()+1);
+		away.setGamesPlayed(away.getGamesPlayed()+1);
+		
+		//Goal made
+		home.setGoalsMade(home.getGoalsMade()+homeScore);
+		home.setGoalsAgainst(home.getGoalsAgainst()+awayScore);
+		away.setGoalsMade(away.getGoalsMade()+awayScore);
+		away.setGoalsAgainst(away.getGoalsAgainst()+homeScore);
+		
+		home.update();
+		away.update();
+		
 	}
 	
 }

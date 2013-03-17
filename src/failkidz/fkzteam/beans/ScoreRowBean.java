@@ -78,7 +78,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	/**
 	 * Updates the row in the database
 	 */
-	private void update(){
+	public void update(){
 		this.initDatabase();
 		String query = "UPDATE score SET teamsid="+this.teamId+", gamesplayed="+this.gamesPlayed+", gameswon="+this.gamesWon+", gameslost="+this.gamesLost+", goalsscored="+this.goalsMade+", goalsagainst="+this.goalsAgainst+", points="+this.points+" WHERE teamsid="+ this.teamId+";";
 		System.out.println(query);
