@@ -203,6 +203,7 @@ public class FixtureHandler {
 			FixtureBean fb = getNextGame();
 			if(fb == null){
 				System.out.println("No more games to play!");
+				sb.append("No more games to play!");
 			}
 			else{
 				sb.append("<form class=\"form-inline\" action=\"/fkz-team/Fixtures\">\n");
