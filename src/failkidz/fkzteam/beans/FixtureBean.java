@@ -133,13 +133,43 @@ public class FixtureBean {
 	}
 	
 	public String getTeamName(int teamID){
-		String query = "SELECT teamname FROM teams WHERE id="+teamID+";";
-		initDatabase();
-		try {
-			return executeQuery(query).getString(1);
-		} catch (SQLException e) {
-			return null;
+		String teamNameDone = null;
+		try{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/db");
+			conn = ds.getConnection();
 		}
+		catch(SQLException e){
+		}
+		catch(NamingException e){
+		}
+			
+		String query = "SELECT * FROM teams WHERE id="+teamID+";";
+		ResultSet rs = null;
+		Statement stmt = null;
+		try{
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			StringBuilder sb = new StringBuilder();
+			rs.next();
+			sb.append(rs.getString(2));
+			
+			teamNameDone = sb.toString();
+		}
+		catch(SQLException e){
+		}
+		finally{
+			try {
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+		}
+		return teamNameDone;
 	}
 
 
