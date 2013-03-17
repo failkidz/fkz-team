@@ -216,18 +216,15 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 			}
 				
 			String query = "SELECT * FROM teams WHERE id="+this.teamId+";";
-			System.out.println(query);
-			
 			ResultSet rs = null;
 			Statement stmt = null;
-			
 			try{
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(query);
 				StringBuilder sb = new StringBuilder();
+				rs.next();
 				sb.append(rs.getString(2));
 				
-				System.out.println("Teamname: " + sb.toString());
 				
 				setTeamName(sb.toString());
 			}
