@@ -123,10 +123,16 @@ public class FixtureBean {
 	public String getHtmlRow(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("<tr>\n");
-		sb.append("<td>"+this.getHomeID()+"</td>\n");
-		sb.append("<td>"+this.getAwayID()+"</td>\n");
-		sb.append("<td>"+this.getHomeScore()+"</td>\n");
-		sb.append("<td>"+this.getAwayScore()+"</td>\n");
+		sb.append("<td>"+getTeamName(this.getHomeID())+"</td>\n");
+		sb.append("<td>"+getTeamName(this.getAwayID())+"</td>\n");
+		if(this.getHomeScore() > -1){
+			sb.append("<td>"+this.getHomeScore()+"</td>\n");
+			sb.append("<td>"+this.getAwayScore()+"</td>\n");
+		}
+		else{
+			sb.append("<td>Not played yet</td>\n");
+			sb.append("<td> </td>\n");
+		}
 		sb.append("</tr>\n");
 
 		return sb.toString();
