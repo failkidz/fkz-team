@@ -52,7 +52,7 @@ public class LoginFilter implements Filter {
 	}
 	
 	public boolean exclude(String uri){
-		return (uri.contains("index") || uri.contains("Scoreboard"));
+		return (uri.contains("Scoreboard") || uri.contains("Login"));
 	}
 
 	/**
