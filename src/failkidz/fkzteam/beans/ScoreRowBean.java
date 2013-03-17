@@ -28,7 +28,8 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	 * with the teamId and the rest set to 0
 	 */
 	public ScoreRowBean(int teamId){
-		this.setTeamId(teamId);
+		this.teamName = null;
+		this.teamId = teamId;
 		this.gamesPlayed = 0;
 		this.gamesWon = 0;
 		this.gamesLost =  0;
@@ -40,7 +41,8 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	}
 	
 	public ScoreRowBean(int teamId,int gamesPlayed,int gamesWon,int gamesLost,int goalsMade,int goalsAgainst,int points){
-		this.setTeamId(teamId);
+		this.teamName = null;
+		this.teamId = teamId;
 		this.gamesPlayed = gamesPlayed;
 		this.gamesWon = gamesWon;
 		this.gamesLost =  gamesLost;
@@ -137,8 +139,8 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 		finally{
 			try {
 				stmt.close();
-				rs.close();
 				conn.close();
+				rs.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -200,7 +202,53 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	 */
 		
 	public String getTeamName() {
-		return teamName;
+		System.out.println("TEAMNAME IS: " + this.teamName);
+		if(this.teamName == null){
+			try{
+				Context initCtx = new InitialContext();
+				Context envCtx = (Context) initCtx.lookup("java:comp/env");
+				DataSource ds = (DataSource)envCtx.lookup("jdbc/db");
+				conn = ds.getConnection();
+			}
+			catch(SQLException e){
+			}
+			catch(NamingException e){
+			}
+				
+			String query = "SELECT * FROM teams WHERE id="+this.teamId+";";
+			System.out.println(query);
+			
+			ResultSet rs = null;
+			Statement stmt = null;
+			
+			try{
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(query);
+				StringBuilder sb = new StringBuilder();
+				sb.append(rs.getString(2));
+				
+				System.out.println("Teamname: " + sb.toString());
+				
+				setTeamName(sb.toString());
+			}
+			catch(SQLException e){
+			}
+			finally{
+				try {
+					stmt.close();
+					conn.close();
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+			}
+			
+			return this.teamName;
+		}
+		else{
+			return this.teamName;
+		}
 	}
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
@@ -242,7 +290,7 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 		this.goalsAgainst = goalsAgainst;
 	}
 	public int getGoalDiff() {
-		return goalDiff;
+		return (getGoalsMade()-getGoalsAgainst());
 	}
 	public void setGoalDiff(int goalDiff) {
 		this.goalDiff = goalDiff;
