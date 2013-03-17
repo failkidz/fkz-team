@@ -34,10 +34,14 @@ public class Fixtures extends HttpServlet {
 		if(request.getParameter("action") != null){
 			if(request.getParameter("action").equals("generategames")){
 				fh.createFixtures(4);
+				System.out.println("Done generating fixtures");
 			}
-		}
+			else if(request.getParameter("action").equals("generategames")){
+				
+			}
+		} 
 
-		//always show fixture schedule
+		//Always show fixture schedule
 		fh.getFixtures();
 		request.setAttribute("fixturehandler", fh);
 
