@@ -45,7 +45,7 @@ public class FixtureBean {
 	
 	public void update(){
 		this.initDatabase();
-		String query = "UPDATE game SET homescore="+this.homeScore+", awayscore="+this.awayScore+" WHERE homeid="+this.homeID + ", awayid="+this.awayID+";";
+		String query = "UPDATE game SET homescore="+this.homeScore+", awayscore="+this.awayScore+" WHERE homeid="+this.homeID + " and awayid="+this.awayID+";";
 		this.execute(query);
 	}
 
