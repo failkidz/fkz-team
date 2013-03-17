@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import failkidz.fkzteam.beans.FixtureHandler;
+import failkidz.fkzteam.beans.ScoreHandler;
 
 /**
  * Servlet implementation class Fixtures
@@ -36,8 +37,11 @@ public class Fixtures extends HttpServlet {
 		
 		if(request.getParameter("action") != null){
 			if(request.getParameter("action").equals("generategames")){
-				fh.createFixtures(4);
+				ScoreHandler sh = new ScoreHandler();
+				int numberOfTeams = sh.generateEmptyScoreBoard();
+				fh.createFixtures(numberOfTeams);
 				System.out.println("Done generating fixtures");
+				
 			}
 			else if(request.getParameter("action").equals("registergame")){
 				//Fetch the input from the form

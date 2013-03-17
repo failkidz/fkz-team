@@ -153,11 +153,13 @@ public class FixtureHandler {
 
 		FixtureBean fb = null;
 		int gameOrder = 0;
+		
+		ArrayList<Integer> teamsRealId = this.fetchRealIds();
 
 		//for every game created, let bean insert it to the database
 		for(int i = 0; i < fixtures.size(); i++){
-			int home = fixtures.get(i).homeID;
-			int away = fixtures.get(i).awayID;
+			int home = teamsRealId.get(fixtures.get(i).homeID);
+			int away = teamsRealId.get(fixtures.get(i).awayID);
 
 			fb = new FixtureBean(home, away,gameOrder);
 			fb.insert();
@@ -182,6 +184,50 @@ public class FixtureHandler {
 		}
 	}
 	
+	private ArrayList<Integer> fetchRealIds() {
+		Connection conn = null;
+		ArrayList<Integer> tempsIds = new ArrayList<Integer>();
+
+		//Create the connection to the database
+		try{
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/db");
+			conn = ds.getConnection();			
+		}
+		catch(SQLException e){
+		}
+		catch(NamingException e){
+		}
+
+		//Execute the query and read the resultset
+		ResultSet rs = null;
+		Statement stmt = null;
+		try{
+			stmt = conn.createStatement();
+			String query = "SELECT * FROM teams";
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()){
+				tempsIds.add(rs.getInt(1));
+			}
+		}
+		catch(SQLException e){
+
+		}
+		finally{
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tempsIds;
+	}
+
 	public FixtureBean getNextGame(){
 		for(FixtureBean fb : loadBean){
 			if(fb.getHomeScore() == -1 && fb.getAwayScore() == -1){
