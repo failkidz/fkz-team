@@ -205,13 +205,13 @@ public class FixtureHandler {
 				System.out.println("No more games to play!");
 			}
 			else{
-				sb.append("<form class=\"form-inline\" action=\"/fkz-team/Login\">\n");
+				sb.append("<form class=\"form-inline\" action=\"/fkz-team/Fixtures\">\n");
 				sb.append("<input type=\"hidden\" name=\"action\" value=\"registergame\">\n");
 				sb.append("<input type=\"hidden\" name=\"homeId\" value="+ fb.getHomeID() +">\n");
 				sb.append("<input type=\"hidden\" name=\"awayId\" value="+ fb.getAwayID() +">\n");
-				sb.append("<label>" + fb.getTeamName(fb.getHomeID()) + " - " + fb.getTeamName(fb.getAwayID()) + "</label>\n");
-				sb.append("<input type=\"text\" class=\"input-small\" placeholder=\"0\">\n");
-				sb.append("<input type=\"text\" class=\"input-small\" placeholder=\"0\">\n");
+				sb.append("<label>" + fb.getTeamName(fb.getHomeID()) + " - " + fb.getTeamName(fb.getAwayID()) + " = </label>\n");
+				sb.append("<input type=\"text\" name=\"homescore\" class=\"input-small\" placeholder=\"0\">\n");
+				sb.append("<input type=\"text\" name=\"awayscore\" class=\"input-small\" placeholder=\"0\">\n");
 				sb.append("<button type=\"submit\" class=\"btn\">Register result</button>\n");	
 				sb.append("</form>");
 			}
@@ -221,6 +221,22 @@ public class FixtureHandler {
 		}
 		
 		return sb.toString();
+	}
+	
+	public void addResult(int homeId,int awayId,int homeScore, int awayScore){
+		//Now get the belingen FixtureBean
+		FixtureBean currentFixture = null;
+		for(FixtureBean fb : loadBean){
+			if(fb.getHomeID() == homeId  && fb.getAwayID() == awayId){
+				currentFixture = fb;
+				break;
+			}
+		}
+		//Now update the score:
+		currentFixture.setHomeScore(homeScore);
+		currentFixture.setAwayScore(awayScore);
+		//And store it to the database
+		currentFixture.update();
 	}
 	
 }

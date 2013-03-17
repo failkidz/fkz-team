@@ -33,13 +33,19 @@ public class FixtureBean {
 		this.awayScore = awayScore;
 		this.gameOrder = gameOrder;
 	}
-
+	
 	/**
 	 * This will create the insert statement to the database 
 	 */
 	public void insert() {
 		this.initDatabase();
 		String query = "INSERT INTO game VALUES(" + this.homeID + ", " + this.awayID + ", " + this.homeScore + ", " + this.awayScore + ", " + this.gameOrder + ");";
+		this.execute(query);
+	}
+	
+	public void update(){
+		this.initDatabase();
+		String query = "UPDATE game SET homescore="+this.homeScore+", awayscore="+this.awayScore+" WHERE homeid="+this.homeID + ", awayid="+this.awayID+";";
 		this.execute(query);
 	}
 
@@ -127,7 +133,7 @@ public class FixtureBean {
 	}
 	
 	public String getTeamName(int teamID){
-		String query = "SELECT teamname FROM teams WHERE id="+teamID;
+		String query = "SELECT teamname FROM teams WHERE id="+teamID+";";
 		initDatabase();
 		try {
 			return executeQuery(query).getString(1);

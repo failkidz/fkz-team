@@ -31,18 +31,25 @@ public class Fixtures extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FixtureHandler fh = new FixtureHandler();
+		//Always show fixture schedule
+		fh.getFixtures();
+		
 		if(request.getParameter("action") != null){
 			if(request.getParameter("action").equals("generategames")){
 				fh.createFixtures(4);
 				System.out.println("Done generating fixtures");
 			}
-			else if(request.getParameter("action").equals("generategames")){
-				
+			else if(request.getParameter("action").equals("registergame")){
+				//Fetch the input from the form
+				int homeId = Integer.parseInt(request.getParameter("homeId"));
+				int awayId = Integer.parseInt(request.getParameter("awayId"));
+				int homeScore = Integer.parseInt(request.getParameter("homescore"));
+				int awayScore = Integer.parseInt(request.getParameter("awayscore"));
+				//Now let the fixture handler do the rest of the work
+				fh.addResult(homeId, awayId, homeScore, awayScore);
 			}
 		} 
 
-		//Always show fixture schedule
-		fh.getFixtures();
 		request.setAttribute("fixturehandler", fh);
 
 		try{
