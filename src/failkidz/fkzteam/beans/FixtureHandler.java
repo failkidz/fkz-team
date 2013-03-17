@@ -143,11 +143,13 @@ public class FixtureHandler {
 
 				//ignores the added ghost team
 				if(addedGhost){
-					if(home != numTeams && away != numTeams){
+					if(home != (numTeams-1) && away != (numTeams-1)){
 						fixtures.add(new Fixture(home, away));
 					} 
 				}
-				fixtures.add(new Fixture(home, away));
+				if(home != (numTeams-1) && away != (numTeams-1)){
+					fixtures.add(new Fixture(home, away));
+				} 
 			}
 		}
 
@@ -155,9 +157,12 @@ public class FixtureHandler {
 		int gameOrder = 0;
 		
 		ArrayList<Integer> teamsRealId = this.fetchRealIds();
-
+		
 		//for every game created, let bean insert it to the database
 		for(int i = 0; i < fixtures.size(); i++){
+			System.out.println(fixtures.get(i).homeID);
+			System.out.println(fixtures.get(i).awayID);
+			System.out.println();
 			int home = teamsRealId.get(fixtures.get(i).homeID);
 			int away = teamsRealId.get(fixtures.get(i).awayID);
 
