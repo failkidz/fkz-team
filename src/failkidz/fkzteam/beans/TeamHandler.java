@@ -23,12 +23,10 @@ public class TeamHandler {
 	}
 
 	public void addTeam(String teamName){
-		System.out.println("Added team");
 		teams.add(teamName);
 	}
 
 	public void addPlayer(String playerName){
-		System.out.println("Added player");
 		players.add(playerName);
 	}
 
@@ -75,7 +73,6 @@ public class TeamHandler {
 
 	public void createTeams(){
 		if(teams.size() == 0 || players.size() == 0){
-			System.out.println("size = 0");
 			return;
 		}
 
@@ -87,7 +84,6 @@ public class TeamHandler {
 
 		int index = 0;
 		for(String team : teams){
-			System.out.println(team);
 			if(index >= players.size())
 				break;
 			new Team(players.get(index++),players.get(index++),team).insert();

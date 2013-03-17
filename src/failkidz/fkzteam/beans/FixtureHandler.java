@@ -145,11 +145,9 @@ public class FixtureHandler {
 				if(addedGhost){
 					if(home != (numTeams-1) && away != (numTeams-1)){
 						fixtures.add(new Fixture(home, away));
-						fixtures.add(new Fixture(home, away));
 					} 
 				} else {
 					if(home != numTeams && away != numTeams){
-						fixtures.add(new Fixture(home, away));
 						fixtures.add(new Fixture(home, away));
 					} 
 				}
@@ -163,9 +161,6 @@ public class FixtureHandler {
 		
 		//for every game created, let bean insert it to the database
 		for(int i = 0; i < fixtures.size(); i++){
-			System.out.println(fixtures.get(i).homeID);
-			System.out.println(fixtures.get(i).awayID);
-			System.out.println();
 			int home = teamsRealId.get(fixtures.get(i).homeID);
 			int away = teamsRealId.get(fixtures.get(i).awayID);
 
@@ -256,7 +251,6 @@ public class FixtureHandler {
 		if(this.existMoreGames()){
 			FixtureBean fb = getNextGame();
 			if(fb == null){
-				System.out.println("No more games to play!");
 				sb.append("No more games to play!");
 			}
 			else{
