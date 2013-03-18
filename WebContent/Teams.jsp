@@ -61,7 +61,7 @@
 		<h3>Add Player:</h3>
 		<form action="/fkz-team/Teams">
 		<input type="hidden" name="action" value="addPlayer">
-		<input type="text" name="playerName" value=""><br>
+		<input type="text" name="playerName" value="" required><br>
 		<input type="submit" value="Add Player">
 		</form>
 		
@@ -69,7 +69,7 @@
 		<h3>Add Team:</h3>
 		<form action="/fkz-team/Teams">
 		<input type="hidden" name="action" value="addTeam">
-		<input type="text" name="teamName" value=""><br>
+		<input type="text" name="teamName" value="" required><br>
 		<input type="submit" value="Add Team">
 		</form>
 		

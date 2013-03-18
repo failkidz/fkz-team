@@ -259,8 +259,8 @@ public class FixtureHandler {
 				sb.append("<input type=\"hidden\" name=\"homeId\" value="+ fb.getHomeID() +">\n");
 				sb.append("<input type=\"hidden\" name=\"awayId\" value="+ fb.getAwayID() +">\n");
 				sb.append("<label>" + fb.getTeamName(fb.getHomeID()) + " - " + fb.getTeamName(fb.getAwayID()) + " = </label>\n");
-				sb.append("<input type=\"text\" name=\"homescore\" class=\"input-small\" placeholder=\"0\">\n");
-				sb.append("<input type=\"text\" name=\"awayscore\" class=\"input-small\" placeholder=\"0\">\n");
+				sb.append("<input type=\"number\" name=\"homescore\" class=\"input-small\" placeholder=\"0\" required>\n");
+				sb.append("<input type=\"number\" name=\"awayscore\" class=\"input-small\" placeholder=\"0\" required>\n");
 				sb.append("<button type=\"submit\" class=\"btn\">Register result</button>\n");	
 				sb.append("</form>");
 			}
