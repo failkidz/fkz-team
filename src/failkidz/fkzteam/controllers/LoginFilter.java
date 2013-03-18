@@ -41,6 +41,10 @@ public class LoginFilter implements Filter {
 			if(!(Boolean)req.getSession().getAttribute("login") ){ //If not logged in
 				//Do nothing (Will be handled later)
 			} else {
+				if(req.getRequestURI().contains("index")){
+					request.getRequestDispatcher("loggedin.jsp").forward(request, response);
+				}
+				
 				chain.doFilter(request, response); //Person is logged in. Allow everything
 				return;
 			}

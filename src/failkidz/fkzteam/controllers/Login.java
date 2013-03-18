@@ -38,17 +38,25 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		boolean validUser = false;;
 		if(request.getParameter("action").equals("loginUser")){
 			LoginHandler lh = new LoginHandler();
-			boolean validUser = lh.verifyUser((String)request.getParameter("username"), (String)request.getParameter("password"));
+			validUser = lh.verifyUser((String)request.getParameter("username"), (String)request.getParameter("password"));
 			request.getSession().setAttribute("login", validUser);
+		}
+		else if(request.getParameter("action").equals("logoutUser")){
+			request.getSession().setAttribute("login", false);
 		}
 		else if(request.getParameter("action").equals("listUsers")){
 			
 		}
 		
 		try{
-			RequestDispatcher rd = request.getRequestDispatcher("");
+			RequestDispatcher rd;
+			if(validUser)
+				rd = request.getRequestDispatcher("loggedin.jsp");
+			else
+				rd = request.getRequestDispatcher("");
 			rd.forward(request, response);
 		}catch (Exception e){
 			e.printStackTrace();
