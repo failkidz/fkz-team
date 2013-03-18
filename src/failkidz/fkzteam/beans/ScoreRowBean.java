@@ -90,22 +90,40 @@ public class ScoreRowBean implements Comparable<ScoreRowBean>{
 	public void loadBean(){
 		this.initDatabase();
 		String query = "SELECT * FROM score WHERE teamsid="+this.teamId+";";
-		ResultSet rs = executeQuery(query);
-		//Since we only want to get one row we can simply just get the column values
-		try {
-			this.teamId = rs.getInt(1);
-			this.gamesPlayed = rs.getInt(2);
-			this.gamesWon = rs.getInt(3);
-			this.gamesLost = rs.getInt(4);
-			this.goalsMade = rs.getInt(5);
-			this.goalsAgainst = rs.getInt(6);
-			this.points = rs.getInt(7);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		ResultSet rs = null;
+		Statement stmt = null;
+		try{
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			
+			//Since we only want to get one row we can simply just get the column values
+			try {
+				rs.next();
+				this.teamId = rs.getInt(1);
+				this.gamesPlayed = rs.getInt(2);
+				this.gamesWon = rs.getInt(3);
+				this.gamesLost = rs.getInt(4);
+				this.goalsMade = rs.getInt(5);
+				this.goalsAgainst = rs.getInt(6);
+				this.points = rs.getInt(7);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		
+		catch(SQLException e){
+		}
+		finally{
+			try {
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+		}
+		System.out.println("Points: " + points);
 	}
 	
 	private void execute(String query){
