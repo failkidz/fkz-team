@@ -56,8 +56,13 @@
 		<h2>Fixtures</h2>
 		<% 
 			//Get the fixture handler
-			FixtureHandler handler = (FixtureHandler)request.getAttribute("fixturehandler");
+			//FixtureHandler handler = (FixtureHandler)request.getAttribute("fixturehandler");
+			FixtureHandler handler = new FixtureHandler();
+			handler.getFixtures();
 		%>
+		
+		<%= request.getAttribute("message") %>
+		
 		<h3>Next game:</h3>
 		<%=handler.getNextGameHTML() %>
 		
@@ -66,11 +71,8 @@
 			handler.createHtmlTable()
 		%>
 		
-		<form action="/fkz-team/Fixtures">
-		<input type="hidden" name="action" value="generategames">
-		<input type="submit" value="Generate schedule">
-		</form>
-
+		<%= handler.getGenButton() %>
+		
 
 	</div>
 	<!-- /container -->

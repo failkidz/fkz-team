@@ -35,12 +35,15 @@ public class Fixtures extends HttpServlet {
 		//Always show fixture schedule
 		fh.getFixtures();
 		
+		String message = "";
+		
 		if(request.getParameter("action") != null){
 			if(request.getParameter("action").equals("generategames")){
 				ScoreHandler sh = new ScoreHandler();
 				int numberOfTeams = sh.generateEmptyScoreBoard();
 				fh.createFixtures(numberOfTeams);
 				System.out.println("Done generating fixtures");
+				message = "<div class=\"alert alert-success\">Generated fixtures!</div>";
 				
 			}
 			else if(request.getParameter("action").equals("registergame")){
@@ -51,9 +54,11 @@ public class Fixtures extends HttpServlet {
 				int awayScore = Integer.parseInt(request.getParameter("awayscore"));
 				//Now let the fixture handler do the rest of the work
 				fh.addResult(homeId, awayId, homeScore, awayScore);
+				message = "<div class=\"alert alert-success\">Registered score!</div>";
 			}
-		} 
-
+		} 			
+		
+		request.setAttribute("message", message);
 		request.setAttribute("fixturehandler", fh);
 
 		try{

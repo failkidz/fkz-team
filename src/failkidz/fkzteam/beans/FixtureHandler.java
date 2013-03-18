@@ -330,4 +330,17 @@ public class FixtureHandler {
 		
 	}
 	
+	public String getGenButton(){
+		if(!existMoreGames()){
+			String generateFixtureCode =  "<form action=\"/fkz-team/Fixtures\">" +
+										  "<input type=\"hidden\" name=\"action\" value=\"generategames\">" +
+										  "<input type=\"submit\" value=\"Generate schedule\">"+
+										   "</form>";
+			return generateFixtureCode;
+		}
+		else{
+			return "";
+		}
+	}
+	
 }
