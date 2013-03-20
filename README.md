@@ -18,6 +18,7 @@ see the current standings
 ###Database diagrams###
 
 These database tables will be used to hold the information.
+Use the db.sql to generate all the tables in a mysql database
 
 ####Login####
 |id    |User name  |Pw hash    |
